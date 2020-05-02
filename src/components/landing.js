@@ -2,7 +2,7 @@ import React from "react";
 
 const Landing = () => {
   return (
-    <p>react component !!!</p>
+    <p>nico's book world</p>
   )
 }
 
