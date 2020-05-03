@@ -1,0 +1,29 @@
+body {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.react {
+  height: 100%;
+}
+
+.map {
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+
+  .mapboxgl-popup .mapboxgl-popup-content {
+    padding: 0px;
+    background: transparent;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  }
+
+  .mapboxgl-popup-close-button {
+    display: none;
+  }
+
+}

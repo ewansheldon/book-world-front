@@ -1,9 +1,20 @@
-import React from "react";
+import React, { Component } from 'react';
+import { addScripts } from '../lib/map';
 
-const Map = () => {
-  return (
-    <p>map</p>
-  )
+class Map extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount = _ => {
+    addScripts();
+  }
+
+  render = _ => {
+    return (
+      <div id='map' className="map"></div>
+    )
+  }
 }
 
-export default Map;
+export default Map
