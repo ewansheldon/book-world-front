@@ -1,7 +1,19 @@
 body {
+  margin: 0px 0px 0px 0px;
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+.nav {
+  background-color: #c7fffd;
+}
+
+.nav--header {
+  color: #efc2ff;
+  text-align: center;
+  margin: 0px 0px 0px 0px;
+  padding: 10px 0px 10px 0px;
 }
 
 .react {

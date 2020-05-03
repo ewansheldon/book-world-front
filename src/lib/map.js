@@ -13,6 +13,8 @@ let scriptLoaded = _ => {
       style: 'mapbox://styles/ewansheldon/ck3qbiage0lvy1cmmw1noxcx8',
       center: [0,40],
       zoom: 2,
+      minZoom: 2,
+      maxZoom: 4,
       width: window.innerWidth,
       height: window.innerHeight,
       navigationControl: {
@@ -58,9 +60,10 @@ let scriptLoaded = _ => {
       }
 
       let mouseEnterHandler = popup => {
-        map.on('mouseenter', 'countries', e => {
+        map.on('mousemove', 'countries', e => {
           map.getCanvas().style.cursor = 'pointer';
           var coordinates = e.lngLat;
+          var coordinates = {lng: e.lngLat.lng, lat: e.lngLat.lat + 2}
           var name = e.features[0].properties.NAME_EN;
 
           popup.setLngLat(coordinates)
