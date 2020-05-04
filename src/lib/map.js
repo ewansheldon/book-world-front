@@ -41,6 +41,10 @@ let scriptLoaded = _ => {
           'fill-outline-color': '#F2F2F2', //this helps us distinguish individual countries a bit better by giving them an outline
         },
       });
+
+      map.on('click', 'countries', e => {
+        console.log(e.features[0].properties.ADM0_A3_IS);
+      })
     }
 
     let addCountriesFilter = _ => {
@@ -95,27 +99,6 @@ let scriptLoaded = _ => {
   addToken();
   createMap();
   onLoadHandlers();
-}
-
-let addScripts = _ => {
-  let addStylesheet = _ => {
-    const link = document.createElement("link");
-    link.href = 'https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-  }
-
-  let addMapboxScript = _ => {
-    const script = document.createElement("script");
-    script.src = 'https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js';
-    script.async = true;
-    script.id = 'mapbox';
-    script.onload = () => scriptLoaded();
-    document.head.appendChild(script);
-  }
-
-  addMapboxScript();
-  addStylesheet();
 }
 
 export { addScripts }
