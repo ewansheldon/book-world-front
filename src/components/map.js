@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import BookInfo from './bookInfo';
 
 class Map extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      book: null
+    }
   }
 
   addToken = _ => {
@@ -44,7 +48,14 @@ class Map extends Component {
     });
 
     this.map.on('click', 'countries', e => {
-      console.log(e.features[0].properties.ADM0_A3_IS);
+      let countryCode = e.features[0].properties.ADM0_A3_IS;
+      fetch(process.env.API_URL + '/books/' + countryCode)
+        .then(response => response.json())
+        .then(data => this.setState({book: data}));
+    })
+
+    this.map.on('click', e => {
+      this.setState({book: null});
     })
   }
 
@@ -133,7 +144,10 @@ class Map extends Component {
 
   render = _ => {
     return (
+      <>
+      <BookInfo book={this.state.book} />
       <div id='map' className="map"></div>
+      </>
     )
   }
 }
