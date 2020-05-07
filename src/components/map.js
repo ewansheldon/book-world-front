@@ -1,155 +1,155 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import BookInfo from './bookInfo';
 
 class Map extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      book: null
-    }
-  }
-
-  addToken = _ => {
-    window.mapboxgl.accessToken = process.env.MAPBOX_TOKEN
-  }
-
-  createMap = _ => {
-    let opts = {
-      container: 'map',
-      style: 'mapbox://styles/ewansheldon/ck3qbiage0lvy1cmmw1noxcx8',
-      center: [0,40],
-      zoom: 2,
-      minZoom: 2,
-      maxZoom: 4,
-      width: window.innerWidth,
-      height: window.innerHeight,
-      navigationControl: {
-        showZoom: true
-      },
-      dragRotate: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            book: null
+        }
     }
 
-    this.map = new window.mapboxgl.Map(opts)
-  }
+    addToken = _ => {
+        window.mapboxgl.accessToken = process.env.MAPBOX_TOKEN
+    }
 
-  addCountriesLayer = _ => {
-    this.map.addLayer({
-      id: 'countries', //this is the name of our layer, which we will need later
-      source: {
-        type: 'vector',
-        url: 'mapbox://ewansheldon.9m3cbvmj', // <--- Add the Map ID you copied here
-      },
-      'source-layer': 'ne_10m_admin_0_countries-b8xt27', // <--- Add the source layer name you copied here
-      type: 'fill',
-      paint: {
-        'fill-color': 'pink', //this is the color you want your tileset to have (I used a nice purple color)
-        'fill-outline-color': '#F2F2F2', //this helps us distinguish individual countries a bit better by giving them an outline
-      },
-    });
+    createMap = _ => {
+        let opts = {
+            container: 'map',
+            style: 'mapbox://styles/ewansheldon/ck3qbiage0lvy1cmmw1noxcx8',
+            center: [0, 40],
+            zoom: 2,
+            minZoom: 2,
+            maxZoom: 4,
+            width: window.innerWidth,
+            height: window.innerHeight,
+            navigationControl: {
+                showZoom: true
+            },
+            dragRotate: false
+        }
 
-    this.map.on('click', 'countries', e => {
-      let countryCode = e.features[0].properties.ADM0_A3_IS;
-      fetch(process.env.API_URL + '/books/' + countryCode)
-        .then(response => response.json())
-        .then(data => this.setState({book: data}));
-    })
+        this.map = new window.mapboxgl.Map(opts)
+    }
 
-    this.map.on('click', e => {
-      this.setState({book: null});
-    })
-  }
+    addCountriesLayer = _ => {
+        this.map.addLayer({
+            id: 'countries', //this is the name of our layer, which we will need later
+            source: {
+                type: 'vector',
+                url: 'mapbox://ewansheldon.9m3cbvmj', // <--- Add the Map ID you copied here
+            },
+            'source-layer': 'ne_10m_admin_0_countries-b8xt27', // <--- Add the source layer name you copied here
+            type: 'fill',
+            paint: {
+                'fill-color': 'pink', //this is the color you want your tileset to have (I used a nice purple color)
+                'fill-outline-color': '#F2F2F2', //this helps us distinguish individual countries a bit better by giving them an outline
+            },
+        });
 
-  addCountriesFilter = _ => {
-    this.map.setFilter(
-      'countries',
-      ['in', 'ADM0_A3_IS'].concat(['JPN', 'GRC', 'GBR', 'PRT', 'ESP', 'AUS']),
-    );
-  }
+        this.map.on('click', 'countries', e => {
+            let countryCode = e.features[0].properties.ADM0_A3_IS;
+            fetch(process.env.API_URL + '/books/' + countryCode)
+                .then(response => response.json())
+                .then(data => this.setState({book: data}));
+        })
 
-  createPopup = _ => {
-    return new window.mapboxgl.Popup({
-      closeButton: false,
-      closeOnClick: false
-    });
-  }
+        this.map.on('click', e => {
+            this.setState({book: null});
+        })
+    }
 
-  mouseEnterHandler = popup => {
-    this.map.on('mousemove', 'countries', e => {
-      this.map.getCanvas().style.cursor = 'pointer';
-      var coordinates = e.lngLat;
-      var coordinates = {lng: e.lngLat.lng, lat: e.lngLat.lat + 2}
-      var name = e.features[0].properties.NAME_EN;
+    addCountriesFilter = _ => {
+        this.map.setFilter(
+            'countries',
+            ['in', 'ADM0_A3_IS'].concat(['JPN', 'GRC', 'GBR', 'PRT', 'ESP', 'AUS']),
+        );
+    }
 
-      popup.setLngLat(coordinates)
-        .setHTML(name)
-        .addTo(this.map);
-    });
-  }
+    createPopup = _ => {
+        return new window.mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+    }
 
-  mouseLeaveHandler = popup => {
-    this.map.on('mouseleave', 'countries', _ => {
-      this.map.getCanvas().style.cursor = '';
-      popup.remove();
-    });
-  }
+    mouseEnterHandler = popup => {
+        this.map.on('mousemove', 'countries', e => {
+            this.map.getCanvas().style.cursor = 'pointer';
+            var coordinates = e.lngLat;
+            var coordinates = {lng: e.lngLat.lng, lat: e.lngLat.lat + 2}
+            var name = e.features[0].properties.NAME_EN;
 
-  addPopupLayer = _ => {
-    let popup = this.createPopup();
-    this.mouseEnterHandler(popup);
-    this.mouseLeaveHandler(popup);
-  }
+            popup.setLngLat(coordinates)
+                .setHTML(name)
+                .addTo(this.map);
+        });
+    }
 
-  onLoadHandlers = _ => {
-    this.map.on('load', _ => {
-      this.map.resize();
-      this.addCountriesLayer();
-      this.addCountriesFilter();
-      this.addPopupLayer();
-    });
-  }
+    mouseLeaveHandler = popup => {
+        this.map.on('mouseleave', 'countries', _ => {
+            this.map.getCanvas().style.cursor = '';
+            popup.remove();
+        });
+    }
 
-  scriptLoaded = _ => {
-    let mapboxgl;
-    let map;
+    addPopupLayer = _ => {
+        let popup = this.createPopup();
+        this.mouseEnterHandler(popup);
+        this.mouseLeaveHandler(popup);
+    }
 
-    this.addToken();
-    this.createMap();
-    this.onLoadHandlers();
-  }
+    onLoadHandlers = _ => {
+        this.map.on('load', _ => {
+            this.map.resize();
+            this.addCountriesLayer();
+            this.addCountriesFilter();
+            this.addPopupLayer();
+        });
+    }
 
-  addStylesheet = _ => {
-    const link = document.createElement("link");
-    link.href = 'https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-  }
+    scriptLoaded = _ => {
+        let mapboxgl;
+        let map;
 
-  addMapboxScript = _ => {
-    const script = document.createElement("script");
-    script.src = 'https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js';
-    script.async = true;
-    script.id = 'mapbox';
-    script.onload = () => this.scriptLoaded();
-    document.head.appendChild(script);
-  }
+        this.addToken();
+        this.createMap();
+        this.onLoadHandlers();
+    }
 
-  addScripts = _ => {
-    this.addMapboxScript();
-    this.addStylesheet();
-  }
+    addStylesheet = _ => {
+        const link = document.createElement("link");
+        link.href = 'https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+    }
 
-  componentDidMount = _ => {
-    this.addScripts();
-  }
+    addMapboxScript = _ => {
+        const script = document.createElement("script");
+        script.src = 'https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js';
+        script.async = true;
+        script.id = 'mapbox';
+        script.onload = () => this.scriptLoaded();
+        document.head.appendChild(script);
+    }
 
-  render = _ => {
-    return (
-      <>
-      <BookInfo book={this.state.book} />
-      <div id='map' className="map"></div>
-      </>
-    )
-  }
+    addScripts = _ => {
+        this.addMapboxScript();
+        this.addStylesheet();
+    }
+
+    componentDidMount = _ => {
+        this.addScripts();
+    }
+
+    render = _ => {
+        return (
+            <>
+                <BookInfo book={this.state.book}/>
+                <div id='map' className="map"></div>
+            </>
+        )
+    }
 }
 
 export default Map
