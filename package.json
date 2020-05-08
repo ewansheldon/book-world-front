@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "engines" : {
-    "node": ">=10.0.0",
-    "npm": ">=6.0.0"
+  "engines": {
+    "node": "12.x",
+    "npm": "6.x"
   },
   "scripts": {
     "test": "jest",
