@@ -34,7 +34,7 @@ class Map extends Component {
 
     addCountriesLayer = _ => {
         this.map.addLayer({
-            id: 'countries', //this is the name of our layer, which we will need later
+            id: 'countries',
             source: {
                 type: 'vector',
                 url: 'mapbox://ewansheldon.9m3cbvmj', // <--- Add the Map ID you copied here
