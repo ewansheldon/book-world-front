@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest",
     "start": "webpack --env dev && node server.js",
-    "build": "webpack --env prod"
+    "build": "webpack --env prod && node server.js"
   },
   "author": "",
   "license": "ISC",
