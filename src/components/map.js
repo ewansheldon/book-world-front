@@ -145,7 +145,6 @@ class Map extends Component {
     }
 
     render = _ => {
-        console.log(process.env.API_URL);
         return (
             <>
                 <BookInfo book={this.state.book}/>
