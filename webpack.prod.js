@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
     mode: 'production',
     module: {
@@ -10,5 +12,11 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            API_URL: JSON.stringify(process.env.API_URL),
+            MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN)
+        })
+    ],
 };
