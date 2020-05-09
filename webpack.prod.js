@@ -1,7 +1,5 @@
-const Dotenv = require('dotenv-webpack');
-
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     module: {
         rules: [
             {
