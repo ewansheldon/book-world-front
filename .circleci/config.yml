@@ -14,5 +14,5 @@ jobs:
 workflows:
     build-and-test:
       jobs:
-        - build-and-test
+        - node/test:
             version: 12.13.1
