@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import BookInfo from './bookInfo';
+import BookInfo from './bookInfo.js';
 
 class Map extends Component {
     constructor(props) {

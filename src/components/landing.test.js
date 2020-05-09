@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { render } from "@testing-library/react";
-import Landing from "./landing";
+import Landing from "./landing.js";
 
 describe("something", () => {
   it("says the name of the app", () => {
