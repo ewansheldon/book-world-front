@@ -49,7 +49,9 @@ class Map extends Component {
 
         this.map.on('click', 'countries', e => {
             let countryCode = e.features[0].properties.ADM0_A3_IS;
-            fetch(process.env.API_URL + '/books/' + countryCode)
+            fetch(process.env.API_URL + '/books/' + countryCode, {
+                mode: 'no-cors'
+            })
                 .then(response => response.json())
                 .then(data => this.setState({book: data}));
         })
