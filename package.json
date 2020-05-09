@@ -11,7 +11,7 @@
     "test": "jest",
     "start": "webpack --env dev && node server.js",
     "build:prod": "webpack --env prod && node server.js",
-    "build": "webpack"
+    "build": "webpack --env prod && node server.js"
   },
   "author": "",
   "license": "ISC",
