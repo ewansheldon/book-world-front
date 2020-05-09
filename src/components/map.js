@@ -49,9 +49,7 @@ class Map extends Component {
 
         this.map.on('click', 'countries', e => {
             let countryCode = e.features[0].properties.ADM0_A3_IS;
-            fetch(process.env.API_URL + '/books/' + countryCode, {
-                mode: 'no-cors'
-            })
+            fetch(process.env.API_URL + '/books/' + countryCode)
                 .then(response => response.json())
                 .then(data => this.setState({book: data}));
         })
@@ -78,7 +76,6 @@ class Map extends Component {
     mouseEnterHandler = popup => {
         this.map.on('mousemove', 'countries', e => {
             this.map.getCanvas().style.cursor = 'pointer';
-            var coordinates = e.lngLat;
             var coordinates = {lng: e.lngLat.lng, lat: e.lngLat.lat + 2}
             var name = e.features[0].properties.NAME_EN;
 
