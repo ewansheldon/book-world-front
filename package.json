@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "node server.js",
+    "start": "webpack --env dev && node server.js",
+    "build:prod": "webpack --env prod && node server.js",
     "build": "webpack"
   },
   "author": "",
