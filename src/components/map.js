@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import BookInfo from './bookInfo.js';
+const fetch = require 'node-fetch';
 
 class Map extends Component {
     constructor(props) {
