@@ -5,7 +5,8 @@ class Map extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            book: null
+            book: null,
+            countries: []
         }
     }
 
@@ -62,7 +63,7 @@ class Map extends Component {
     addCountriesFilter = _ => {
         this.map.setFilter(
             'countries',
-            ['in', 'ADM0_A3_IS'].concat(['JPN', 'GRC', 'GBR', 'PRT', 'ESP', 'AUS']),
+            ['in', 'ADM0_A3_IS'].concat(this.state.countries),
         );
     }
 
@@ -138,6 +139,9 @@ class Map extends Component {
     }
 
     componentDidMount = _ => {
+        fetch(process.env.API_URL + '/countries')
+            .then(response => response.json())
+            .then(data => this.setState({countries: data}));
         this.addScripts();
     }
 
