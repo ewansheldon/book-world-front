@@ -129,7 +129,6 @@ const Map = () => {
   }
 
   const addScripts = _ => {
-    console.log(countries);
     addMapboxScript();
     addStylesheet();
   }
