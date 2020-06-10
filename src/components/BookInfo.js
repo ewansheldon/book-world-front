@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
+import * as PropTypes from 'prop-types';
 
-const BookInfo = (props) => {
-    if (props.book) {
+const BookInfo = ({book}) => {
+    if (book) {
         return (
             <div className="book-info">
                 <div className="book-info--header">
                     <div className="book-info--header--title">
-                        <h2>{props.book.title}</h2>
-                        <h3>by {props.book.author}</h3>
+                        <h2>{book.title}</h2>
+                        <h3>by {book.author}</h3>
                     </div>
                     <img
                         src="https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Viles_Bodies.jpg/220px-Viles_Bodies.jpg"/>
@@ -31,5 +32,14 @@ const BookInfo = (props) => {
 
     return null;
 }
+
+const book = PropTypes.shape({
+    title: PropTypes.string,
+    author: PropTypes.string
+});
+
+BookInfo.propTypes = {
+    book: book
+};
 
 export default BookInfo;
