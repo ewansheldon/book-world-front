@@ -1,6 +1,6 @@
 import React from "react";
-import Nav from "./nav.js";
-import Map from "./map.js";
+import Nav from "../Nav.js";
+import Map from "../Map.js";
 
 const Landing = () => {
   return (

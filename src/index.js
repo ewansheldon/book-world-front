@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Landing from "./components/landing.js";
+import Landing from "./components/Landing/Landing.js";
 
 ReactDOM.render(<Landing />, document.getElementById("root"));
