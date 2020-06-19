@@ -39,6 +39,7 @@
     "babel-jest": "^25.5.1",
     "dotenv-webpack": "^1.7.0",
     "jest": "^25.5.4",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0",
+    "websocket-extensions": ">=0.1.4"
   }
 }
