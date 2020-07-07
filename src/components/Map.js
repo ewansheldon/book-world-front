@@ -49,8 +49,8 @@ const Map = () => {
           ['boolean', ['to-boolean', ['feature-state', 'hover']], true],
           1,
           0
-        ]
-        // 'fill-opacity': 0
+        ],
+        'fill-outline-color': '#c7fffd'
       },
     });
 
