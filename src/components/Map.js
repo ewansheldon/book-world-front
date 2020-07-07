@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import BookInfo from './BookInfo.js';
+import {getCountries} from "../api/Requests";
 
 const fetch = require('node-fetch');
 
 const Map = () => {
   let map;
+  let hoveredFeature;
   const [book, setBook] = useState();
   const [countries, setCountries] = useState([]);
 
@@ -41,8 +43,14 @@ const Map = () => {
       'source-layer': 'ne_10m_admin_0_countries-b8xt27', // <--- Add the source layer name you copied here
       type: 'fill',
       paint: {
-        'fill-color': 'pink', //this is the color you want your tileset to have (I used a nice purple color)
-        'fill-outline-color': '#F2F2F2', //this helps us distinguish individual countries a bit better by giving them an outline
+        'fill-color': 'pink',
+        'fill-opacity': [
+          'case',
+          ['boolean', ['to-boolean', ['feature-state', 'hover']], true],
+          1,
+          0
+        ]
+        // 'fill-opacity': 0
       },
     });
 
@@ -72,26 +80,60 @@ const Map = () => {
     });
   }
 
+  const showPopup = (e, popup) => {
+    var coordinates = {lng: e.lngLat.lng, lat: e.lngLat.lat + 2}
+    var name = e.features[0].properties.NAME_EN;
+
+    popup.setLngLat(coordinates)
+    .setHTML(name)
+    .addTo(map);
+  }
+
+  function clearPreviousHovers() {
+    map.setFeatureState(
+        {
+          source: 'countries',
+          id: hoveredFeature.id,
+          sourceLayer: hoveredFeature.sourceLayer
+        },
+        {hover: false}
+    );
+  }
+
+  function setNewHover(e) {
+    hoveredFeature = e.features[0];
+    map.setFeatureState(
+        {
+          source: 'countries',
+          id: hoveredFeature.id,
+          sourceLayer: hoveredFeature.sourceLayer
+        },
+        {hover: true}
+    );
+  }
+
   const mouseEnterHandler = popup => {
     map.on('mousemove', 'countries', e => {
       map.getCanvas().style.cursor = 'pointer';
-      var coordinates = {lng: e.lngLat.lng, lat: e.lngLat.lat + 2}
-      var name = e.features[0].properties.NAME_EN;
+      // showPopup(e, popup)
 
-      popup.setLngLat(coordinates)
-      .setHTML(name)
-      .addTo(map);
+      if (hoveredFeature) {
+        clearPreviousHovers();
+      }
+
+      setNewHover(e);
     });
   }
 
   const mouseLeaveHandler = popup => {
-    map.on('mouseleave', 'countries', _ => {
+    map.on('mouseleave', 'countries', e => {
       map.getCanvas().style.cursor = '';
-      popup.remove();
+      // popup.remove();
+      clearPreviousHovers();
     });
   }
 
-  const addPopupLayer = _ => {
+  const addHoverHandlers = _ => {
     let popup = createPopup();
     mouseEnterHandler(popup);
     mouseLeaveHandler(popup);
@@ -102,7 +144,7 @@ const Map = () => {
       map.resize();
       addCountriesLayer();
       addCountriesFilter();
-      addPopupLayer();
+      addHoverHandlers();
     });
   }
 
@@ -134,11 +176,7 @@ const Map = () => {
   }
 
   useEffect(() => {
-    fetch(process.env.API_URL + '/countries')
-    .then(response => response.json())
-    .then(data => {
-      setCountries(data);
-    });
+    getCountries().then(data => setCountries(data))
   }, [])
 
   useEffect(() => {
