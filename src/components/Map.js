@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import BookInfo from './BookInfo.js';
-import {getCountries} from "../api/Requests";
-
-const fetch = require('node-fetch');
+import {getBook, getCountries} from "../api/Requests";
 
 const Map = () => {
   let map;
@@ -55,10 +53,8 @@ const Map = () => {
     });
 
     map.on('click', 'countries', e => {
-      let countryCode = e.features[0].properties.ADM0_A3_IS;
-      fetch(process.env.API_URL + '/books/' + countryCode)
-      .then(response => response.json())
-      .then(data => setBook(data));
+      let country = e.features[0].properties.ADM0_A3_IS;
+      getBook(country).then(setBook);
     })
 
     map.on('click', _ => {
@@ -176,7 +172,7 @@ const Map = () => {
   }
 
   useEffect(() => {
-    getCountries().then(data => setCountries(data))
+    getCountries().then(setCountries)
   }, [])
 
   useEffect(() => {
