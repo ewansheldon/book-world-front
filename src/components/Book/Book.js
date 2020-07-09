@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 
-const BookInfo = ({book}) => {
+const Book = ({book}) => {
     if (book) {
         return (
             <div className="book-info">
@@ -28,8 +28,8 @@ const book = PropTypes.shape({
     thumbnail: PropTypes.string
 });
 
-BookInfo.propTypes = {
+Book.propTypes = {
     book: book
 };
 
-export default BookInfo;
+export default Book;

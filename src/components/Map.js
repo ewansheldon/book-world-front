@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import BookInfo from './BookInfo.js';
+import Book from './Book/Book.js';
 import {getBook, getCountries} from "../api/Requests";
 
 const Map = () => {
@@ -181,7 +181,7 @@ const Map = () => {
 
   return (
       <>
-        <BookInfo book={book}/>
+        <Book book={book}/>
         <div id='map' className="map"/>
       </>
   );
