@@ -10,8 +10,7 @@ const Book = ({book}) => {
                         <h2>{book.title}</h2>
                         <h3>by {book.author}</h3>
                     </div>
-                    <img
-                        src={book.thumbnail}/>
+                    <img src={book.thumbnail}/>
                 </div>
                 <p>{book.description}</p>
             </div>
