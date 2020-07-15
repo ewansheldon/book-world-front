@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { getAllCountries } from "../../api/Requests";
+import { getAllCountries, createBook } from "../../api/Requests";
 
 const Nico = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
+  const [country, setCountry] = useState('');
 
   useEffect(() => {
     getAllCountries().then(setCountries);
@@ -13,6 +13,9 @@ const Nico = () => {
 
   const saveBook = e => {
     e.preventDefault();
+    createBook({title, author, country}).then(res => {
+      console.log(res);
+    });
   }
 
   const countryOptions = countries.map((country, index) =>
@@ -30,13 +33,13 @@ const Nico = () => {
           <input id="author" type="text" value={author} onChange={e => setAuthor(e.target.value)} />
         </div>
         <div>
-          <select value={selectedCountry} onChange={e => setSelectedCountry(e.target.value)}>
+          <select value={country} onChange={e => setCountry(e.target.value)}>
             <option value=''></option>
             {countryOptions}
           </select>
         </div>
         <div>
-          <input type="submit" disabled={!selectedCountry} />
+          <input type="submit" disabled={!country} />
         </div>
       </form>
     </>
