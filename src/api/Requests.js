@@ -10,7 +10,7 @@ export const getBook = async (country) => {
 
 export const getBooks = async token => {
   const response = await fetch(process.env.API_URL + '/books', {
-    headers: { Authorization: "token" }
+    headers: { Authorization: token }
   });
 
   if (response.ok) return response.json();
