@@ -21,8 +21,11 @@ const Nico = ({cookies, setAuthorised}) => {
 
   const saveBook = e => {
     e.preventDefault();
-    createBook({title, author, country}, getToken(cookies)).then(res => {
-      console.log(res);
+    createBook({title, author, country}, getToken(cookies)).then(book => {
+      setBooks([...books, book])
+      setTitle('');
+      setAuthor('');
+      setCountry('');
     });
   }
 
