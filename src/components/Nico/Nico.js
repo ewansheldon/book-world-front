@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { getAllCountries, createBook, getBooks } from "../../api/Requests";
+import { withCookies } from "react-cookie";
+import { getToken, logOut } from "../../services/AuthService.js"
+import * as PropTypes from 'prop-types';
 
-const Nico = () => {
+const Nico = ({cookies, setAuthorised}) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [allCountries, setAllCountries] = useState([]);
@@ -10,17 +13,18 @@ const Nico = () => {
 
   useEffect(() => {
     getAllCountries().then(setAllCountries);
-    getBooks().then(setBooks);
+    getBooks(getToken(cookies)).then(setBooks).catch(_ => {
+      logOut(cookies);
+      setAuthorised(false);
+    });
   }, [])
 
   const saveBook = e => {
     e.preventDefault();
-    createBook({title, author, country}).then(res => {
+    createBook({title, author, country}, getToken(cookies)).then(res => {
       console.log(res);
     });
   }
-
-  console.log(books);
 
   const countryOptions = allCountries.map((country, index) =>
     <option value={country.alpha3Code} key={index}>{country.name}</option>);
@@ -56,7 +60,9 @@ const Nico = () => {
           <input type="submit" disabled={!country} />
         </div>
       </form>
+      <hr/>
       <table>
+        <caption>BOOKS</caption>
         <thead>
           <tr>
             <th>Title</th>
@@ -72,4 +78,13 @@ const Nico = () => {
   )
 }
 
-export default Nico;
+const cookies = PropTypes.shape({
+    get: PropTypes.func.isRequired,
+});
+
+Nico.propTypes = {
+    cookies: cookies.isRequired,
+    setAuthorised: PropTypes.func.isRequired
+};
+
+export default withCookies(Nico);
