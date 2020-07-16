@@ -8,6 +8,11 @@ export const getBook = async (country) => {
     response => response.json());
 }
 
+export const getBooks = async () => {
+  return await fetch(process.env.API_URL + '/books').then(
+    response => response.json());
+}
+
 export const createBook = async (book) => {
   return await fetch(process.env.API_URL + '/books', {
     method: "POST",

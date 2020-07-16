@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { getAllCountries, createBook } from "../../api/Requests";
+import { getAllCountries, createBook, getBooks } from "../../api/Requests";
 
 const Nico = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [countries, setCountries] = useState([]);
+  const [allCountries, setAllCountries] = useState([]);
+  const [books, setBooks] = useState([]);
   const [country, setCountry] = useState('');
 
   useEffect(() => {
-    getAllCountries().then(setCountries);
+    getAllCountries().then(setAllCountries);
+    getBooks().then(setBooks);
   }, [])
 
   const saveBook = e => {
@@ -18,8 +20,20 @@ const Nico = () => {
     });
   }
 
-  const countryOptions = countries.map((country, index) =>
-    <option value={country.alpha3Code} key={index}>{country.name}</option>)
+  console.log(books);
+
+  const countryOptions = allCountries.map((country, index) =>
+    <option value={country.alpha3Code} key={index}>{country.name}</option>);
+
+  const booksList = books.map((book, index) => {
+    return (
+      <tr key={index}>
+        <td>{book.title}</td>
+        <td>{book.author}</td>
+        <td>{book.country}</td>
+      </tr>
+    )
+  });
 
   return (
     <>
@@ -42,6 +56,18 @@ const Nico = () => {
           <input type="submit" disabled={!country} />
         </div>
       </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          {booksList}
+        </tbody>
+      </table>
     </>
   )
 }
