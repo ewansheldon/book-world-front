@@ -42,9 +42,6 @@ const Nico = ({cookies, setAuthorised}) => {
     )
   });
 
-  console.log(allCountries)
-  console.log(country)
-
   return (
     <>
       <form onSubmit={saveBook}>
