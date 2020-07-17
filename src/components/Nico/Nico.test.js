@@ -40,7 +40,7 @@ const fetchResponse = data => {
 beforeEach(() => {
   global.fetch = jest.fn();
   global.fetch.mockReturnValueOnce(fetchResponse(countries))
-    .mockReturnValueOnce(fetchResponse(books));
+    .mockReturnValue(fetchResponse(books));
 });
 
 
