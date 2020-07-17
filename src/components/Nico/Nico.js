@@ -16,11 +16,20 @@ const Nico = ({cookies, setAuthorised}) => {
   }, [])
 
   const booksList = books.map((book, index) => {
+    const abbreviate = text => {
+      if (text.length > 100) {
+        return text.substring(0, 97) + '...';
+      }
+
+      return text;
+    }
+
     return (
       <tr key={index}>
         <td>{book.title}</td>
         <td>{book.author}</td>
         <td>{book.country}</td>
+        <td>{abbreviate(book.description)}</td>
       </tr>
     )
   });
@@ -40,6 +49,7 @@ const Nico = ({cookies, setAuthorised}) => {
             <th>Title</th>
             <th>Author</th>
             <th>Country</th>
+            <th>Description</th>
           </tr>
         </thead>
         <tbody>
