@@ -12,7 +12,7 @@ const NicoNewBook = ({addBookToList, cookies}) => {
 
     useEffect(() => {
         getAllCountries().then(setAllCountries);
-    });
+    }, []);
 
     const saveBook = e => {
       e.preventDefault();
