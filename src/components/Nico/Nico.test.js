@@ -1,20 +1,20 @@
-import "@testing-library/jest-dom";
-import React from "react";
-import {act, render, waitFor} from "@testing-library/react";
-import Nico from "./Nico.js";
+import '@testing-library/jest-dom';
+import React from 'react';
+import {act, render, waitFor} from '@testing-library/react';
+import Nico from './Nico.js';
 
 const books = [{
-    title: "Vile Bodies",
-    author: "Evelyn Waugh",
-    country: "GBR",
-    description: "description of Vile Bodies",
-    thumbnail: "vile-bodies-thumbnail.jpg"
+    title: 'Vile Bodies',
+    author: 'Evelyn Waugh',
+    country: 'GBR',
+    description: 'description of Vile Bodies',
+    thumbnail: 'vile-bodies-thumbnail.jpg'
 }, {
-    title: "Master and Margarita",
-    author: "Mikhail Bulgakov",
-    country: "RUS",
-    description: "description of Master and Margarita",
-    thumbnail: "master-margarita-thumbnail.jpg"
+    title: 'Master and Margarita',
+    author: 'Mikhail Bulgakov',
+    country: 'RUS',
+    description: 'description of Master and Margarita',
+    thumbnail: 'master-margarita-thumbnail.jpg'
 }];
 
 global.fetch = jest.fn(() => {
@@ -39,8 +39,12 @@ const renderNico = _ => {
   return render(<Nico {...props} />);
 }
 
-describe("nico's page", () => {
-  it("shows the books data", async () => {
+describe('new book form', () => {
+  it('renders card form', ( => {}))
+});
+
+describe('books list', () => {
+  it('shows the books data', async () => {
     await act(async () => {
       const { getByText } = renderNico();
       await waitFor(() => {
