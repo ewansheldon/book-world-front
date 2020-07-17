@@ -42,25 +42,29 @@ const Nico = ({cookies, setAuthorised}) => {
     )
   });
 
+  console.log(allCountries)
+  console.log(country)
+
   return (
     <>
       <form onSubmit={saveBook}>
         <div>
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Title:</label>
           <input id="title" type="text" value={title} onChange={e => setTitle(e.target.value)} />
         </div>
         <div>
-          <label htmlFor="author">Author</label>
+          <label htmlFor="author">Author:</label>
           <input id="author" type="text" value={author} onChange={e => setAuthor(e.target.value)} />
         </div>
         <div>
-          <select value={country} onChange={e => setCountry(e.target.value)}>
+          <label htmlFor="country">Country:</label>
+          <select id="country" value={country} onChange={e => setCountry(e.target.value)}>
             <option value=''></option>
             {countryOptions}
           </select>
         </div>
         <div>
-          <input type="submit" disabled={!country} />
+          <input value="Save Book" type="submit" disabled={!title || !author || !country} />
         </div>
       </form>
       <hr/>
