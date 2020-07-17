@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { getBooks } from "../../api/Requests";
 import { withCookies } from "react-cookie";
-import { getToken, logOut } from "../../services/AuthService.js"
 import * as PropTypes from 'prop-types';
 import NicoNewBook from "./NicoNewBook";
+import NicoBooksTable from "./NicoBooksTable";
+import { getBooks } from "../../api/Requests";
+import { logOut, getToken } from "../../services/AuthService";
 
 const Nico = ({cookies, setAuthorised}) => {
   const [books, setBooks] = useState([]);
 
+  const addBookToList = book => {
+    setBooks([...books, book]);
+  }
+  
   useEffect(() => {
     getBooks(getToken(cookies)).then(setBooks).catch(_ => {
       logOut(cookies);
@@ -15,47 +20,11 @@ const Nico = ({cookies, setAuthorised}) => {
     });
   }, [])
 
-  const booksList = books.map((book, index) => {
-    const abbreviate = text => {
-      if (text.length > 100) {
-        return text.substring(0, 97) + '...';
-      }
-
-      return text;
-    }
-
-    return (
-      <tr key={index}>
-        <td>{book.title}</td>
-        <td>{book.author}</td>
-        <td>{book.country}</td>
-        <td>{abbreviate(book.description)}</td>
-      </tr>
-    )
-  });
-
-  const addBookToList = book => {
-    setBooks([...books, book]);
-  }
-
   return (
     <>
       <NicoNewBook addBookToList={addBookToList} />
       <hr/>
-      <table>
-        <caption>BOOKS</caption>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Country</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {booksList}
-        </tbody>
-      </table>
+      <NicoBooksTable books={books} />
     </>
   )
 }
