@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import * as PropTypes from 'prop-types';
 
+const styles = {
+    'books--table': {
+        border: '1px solid black'
+    },
+    'books--table--tr': {
+        cursor: 'pointer'
+    },
+    'books--table--tr--hovered': {
+        cursor: 'pointer',
+        backgroundColor: 'pink'
+    }
+}
+
 const NicoBooksTable = ({books}) => {
+    const [hovered, setHovered] = useState();
 
     const booksList = books.map((book, index) => {
       const abbreviate = text => {
@@ -13,7 +27,10 @@ const NicoBooksTable = ({books}) => {
       }
   
       return (
-        <tr key={index}>
+        <tr onMouseEnter={() => setHovered(index)}
+            onMouseLeave={() => setHovered()}
+            onClick={console.log} key={index}
+            style={hovered === index ? styles["books--table--tr--hovered"] : styles["books--table--tr"]}>
           <td>{book.title}</td>
           <td>{book.author}</td>
           <td>{book.country}</td>
@@ -23,7 +40,7 @@ const NicoBooksTable = ({books}) => {
     });
 
     return (
-        <table>
+        <table style={styles["books--table"]}>
           <caption>BOOKS</caption>
           <thead>
             <tr>
