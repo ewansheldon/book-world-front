@@ -7,9 +7,9 @@ import * as PropTypes from 'prop-types';
 const Nico = ({cookies, setAuthorised}) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [allCountries, setAllCountries] = useState([]);
-  const [books, setBooks] = useState([]);
   const [country, setCountry] = useState('');
+  const [books, setBooks] = useState([]);
+  const [allCountries, setAllCountries] = useState([]);
 
   useEffect(() => {
     getAllCountries().then(setAllCountries);
