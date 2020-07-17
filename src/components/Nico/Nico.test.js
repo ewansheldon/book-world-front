@@ -27,7 +27,7 @@ global.fetch = jest.fn(() => {
 const renderNico = _ => {
   const props = {
     cookies: {
-      get: () => "token",
+      get: () => {},
       getAll: () => {},
       remove: () => {},
       removeChangeListener: () => {},
