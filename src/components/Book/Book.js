@@ -23,6 +23,7 @@ const Book = ({book}) => {
 const book = PropTypes.shape({
     title: PropTypes.string,
     author: PropTypes.string,
+    country: PropTypes.string,
     description: PropTypes.string,
     thumbnail: PropTypes.string
 });

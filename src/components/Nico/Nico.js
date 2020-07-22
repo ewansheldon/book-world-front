@@ -5,9 +5,11 @@ import NicoNewBook from "./NicoNewBook";
 import NicoBooksTable from "./NicoBooksTable";
 import { getBooks } from "../../api/Requests";
 import { logOut, getToken } from "../../services/AuthService";
+import Modal from "./Modal";
 
 const Nico = ({cookies, setAuthorised}) => {
   const [books, setBooks] = useState([]);
+  const [content, setContent] = useState();
 
   const addBookToList = book => {
     setBooks([...books, book]);
@@ -20,11 +22,15 @@ const Nico = ({cookies, setAuthorised}) => {
     });
   }, [])
 
+  const renderNewBookForm = _ => {
+    return <NicoNewBook addBookToList={addBookToList} />
+  }
+
   return (
     <>
-      <NicoNewBook addBookToList={addBookToList} />
-      <hr/>
+      <button onClick={_ => setContent(renderNewBookForm())}>Add new book</button>
       <NicoBooksTable books={books} />
+      {content && <Modal close={setContent} content={content} />}
     </>
   )
 }
