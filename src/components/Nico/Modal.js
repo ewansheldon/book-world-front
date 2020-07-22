@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as PropTypes from 'prop-types';
 
 const styles = {
@@ -26,25 +26,7 @@ const styles = {
   }
 }
 
-const Modal = ({ close, content }) => {
-  const removeEscapeListener = _ => {
-    removeEventListener('keydown', keyDownEvent);
-  }
-
-  const keyDownEvent = ({keyCode}) => {
-    if (keyCode === 27) {
-      removeEscapeListener();
-      close();
-    }
-  }
-  
-  const addEscapeListener = _ => {
-    addEventListener('keydown', keyDownEvent);
-  }
-  
-  useEffect(_ => {
-    addEscapeListener();
-  }, []);
+const Modal = ({ content }) => {
 
   return (
     <div style={styles.modal}>

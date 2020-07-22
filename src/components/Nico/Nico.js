@@ -13,6 +13,17 @@ const Nico = ({cookies, setAuthorised}) => {
 
   const addBookToList = book => {
     setBooks([...books, book]);
+    setContent();
+  }
+
+  const keyDownEvent = ({keyCode}) => {
+    if (keyCode === 27) {
+      setContent();
+    }
+  }
+  
+  const addEscapeListener = _ => {
+    addEventListener('keydown', keyDownEvent);
   }
   
   useEffect(() => {
@@ -20,6 +31,7 @@ const Nico = ({cookies, setAuthorised}) => {
       logOut(cookies);
       setAuthorised(false);
     });
+    addEscapeListener();
   }, [])
 
   const renderNewBookForm = _ => {
