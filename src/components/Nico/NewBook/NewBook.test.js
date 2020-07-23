@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
-import NicoNewBook from './NewBook.js';
+import NewBook from './NewBook.js';
 import {
   toBeDisabled
 } from '@testing-library/jest-dom/matchers'
@@ -39,7 +39,7 @@ const renderNewBookForm = _ => {
         addBookToList: () => { }
     };
 
-    return render(<NicoNewBook {...props} />)
+    return render(<NewBook {...props} />)
 }
 
 describe('new book form', () => {

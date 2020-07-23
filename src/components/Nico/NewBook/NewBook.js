@@ -55,7 +55,7 @@ const cookies = PropTypes.shape({
     get: PropTypes.func.isRequired,
 });
 
-NicoNewBook.propTypes = {
+NewBook.propTypes = {
     cookies: cookies.isRequired,
     addBookToList: PropTypes.func.isRequired
 }
