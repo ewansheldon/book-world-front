@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import * as PropTypes from 'prop-types';
-import { getAllCountries, createBook } from "../../api/Requests";
-import { getToken } from "../../services/AuthService.js"
+import { getAllCountries, createBook } from "../../../api/Requests";
+import { getToken } from "../../../services/AuthService.js"
 import { withCookies } from "react-cookie";
 
-const NicoNewBook = ({addBookToList, cookies}) => {
+const NewBook = ({addBookToList, cookies}) => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [country, setCountry] = useState('');
@@ -60,4 +60,4 @@ NicoNewBook.propTypes = {
     addBookToList: PropTypes.func.isRequired
 }
 
-export default withCookies(NicoNewBook);
+export default withCookies(NewBook);

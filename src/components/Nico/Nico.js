@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withCookies } from "react-cookie";
 import * as PropTypes from 'prop-types';
-import NicoNewBook from "./NicoNewBook";
+import NicoNewBook from "./NewBook/NewBook";
 import NicoBooksTable from "./NicoBooksTable";
 import { getBooks } from "../../api/Requests";
 import { logOut, getToken } from "../../services/AuthService";

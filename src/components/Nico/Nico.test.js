@@ -1,20 +1,7 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import {act, render, waitFor, fireEvent} from '@testing-library/react';
-import {
-  toBeDisabled
-} from '@testing-library/jest-dom/matchers'
+import {act, render, waitFor} from '@testing-library/react';
 import Nico from './Nico.js';
-
-expect.extend({toBeDisabled})
-
-const countries = [{
-  alpha3Code: 'GBR',
-  name: 'United Kingdom'
-}, {
-  alpha3Code: 'RUS',
-  name: 'Russia'
-}]
 
 const books = [{
     title: 'Vile Bodies',
@@ -38,11 +25,9 @@ const fetchResponse = data => {
 }
 
 beforeEach(() => {
-  global.fetch = jest.fn();
-  global.fetch.mockReturnValueOnce(fetchResponse(countries))
-    .mockReturnValue(fetchResponse(books));
-});
-
+    global.fetch = jest.fn();
+    global.fetch.mockReturnValue(fetchResponse(books));
+  });
 
 const renderNico = _ => {
   const props = {
@@ -58,24 +43,6 @@ const renderNico = _ => {
 
   return render(<Nico {...props} />);
 }
-
-describe('new book form', () => {
-  it('renders card form', async () => {
-    await act(async () => {
-      const { getByText } = renderNico();
-      getByText('Title:');
-      getByText('Author:');
-      getByText('Country:');
-    })
-  });
-
-  it('disables submit button until form complete', async () => {
-    await act(async () => {
-      const { getByText } = renderNico();
-      expect(getByText('Save Book')).toBeDisabled()
-    });
-  });
-});
 
 describe('books list', () => {
   it('shows the books data', async () => {
