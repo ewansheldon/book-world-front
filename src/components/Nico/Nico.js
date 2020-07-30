@@ -8,6 +8,16 @@ import { getBooks } from "../../api/Requests";
 import { logOut, getToken } from "../../services/AuthService";
 import Modal from "./Modal";
 
+const styles = {
+  addBookButton: {
+    margin: 15,
+    marginLeft: '5%',
+    backgroundColor: '#a9fcc2',
+    borderColor: '#c5fcc4',
+    color: '#9f7da5'
+  }
+}
+
 const Nico = ({cookies, setAuthorised}) => {
   const [books, setBooks] = useState([]);
   const [content, setContent] = useState();
@@ -49,7 +59,7 @@ const Nico = ({cookies, setAuthorised}) => {
 
   return (
     <>
-      <button onClick={renderNewBookForm}>Add new book</button>
+      <button style={styles.addBookButton} onClick={renderNewBookForm}>Add new book</button>
       <NicoBooksTable books={books} editBook={renderEditBookForm} />
       {content && <Modal close={_ => setContent()} content={content} />}
     </>
