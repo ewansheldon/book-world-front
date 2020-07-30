@@ -28,7 +28,7 @@ const styles = {
   }
 }
 
-const NicoBooksTable = ({ books }) => {
+const NicoBooksTable = ({ books, editBook }) => {
   const [hovered, setHovered] = useState();
 
   const booksList = books.map((book, index) => {
@@ -48,7 +48,7 @@ const NicoBooksTable = ({ books }) => {
         onMouseLeave={() => setHovered()}
         key={index}
         style={rowStyle()}
-        onClick={_ => setFocusedBook(book)}>
+        onClick={_ => editBook(book)}>
         <td>{book.title}</td>
         <td>{book.author}</td>
         <td>{book.country}</td>
@@ -86,7 +86,8 @@ const book = PropTypes.shape({
 })
 
 NicoBooksTable.propTypes = {
-  books: PropTypes.arrayOf(book).isRequired
+  books: PropTypes.arrayOf(book).isRequired,
+  editBook: PropTypes.func.isRequired
 };
 
 

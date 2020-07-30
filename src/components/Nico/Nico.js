@@ -3,6 +3,7 @@ import { withCookies } from "react-cookie";
 import * as PropTypes from 'prop-types';
 import NicoNewBook from "./NewBook/NewBook";
 import NicoBooksTable from "./NicoBooksTable";
+import EditBook from "./EditBook";
 import { getBooks } from "../../api/Requests";
 import { logOut, getToken } from "../../services/AuthService";
 import Modal from "./Modal";
@@ -35,13 +36,17 @@ const Nico = ({cookies, setAuthorised}) => {
   }, [])
 
   const renderNewBookForm = _ => {
-    return <NicoNewBook addBookToList={addBookToList} />
+    setContent(<NicoNewBook addBookToList={addBookToList} />);
+  }
+
+  const renderEditBookForm = book => {
+    setContent(<EditBook book={book} />);
   }
 
   return (
     <>
-      <button onClick={_ => setContent(renderNewBookForm())}>Add new book</button>
-      <NicoBooksTable books={books} />
+      <button onClick={renderNewBookForm}>Add new book</button>
+      <NicoBooksTable books={books} editBook={renderEditBookForm} />
       {content && <Modal close={setContent} content={content} />}
     </>
   )

@@ -17,10 +17,7 @@ const NewBook = ({addBookToList, cookies}) => {
     const saveBook = e => {
       e.preventDefault();
       createBook({title, author, country}, getToken(cookies)).then(book => {
-        addBookToList(book)
-        setTitle('');
-        setAuthor('');
-        setCountry('');
+        addBookToList(book);
       });
     }
 

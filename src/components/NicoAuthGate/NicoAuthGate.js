@@ -5,19 +5,12 @@ import * as PropTypes from 'prop-types';
 import Nico from "../Nico/Nico.js";
 import { isLoggedIn, setLoggedIn, logOut } from "../../services/AuthService.js"
 
-const NicoAuthGate = ({cookies}) => {
+const NicoAuthGate = ({ cookies }) => {
     const [authorised, setAuthorised] = useState(isLoggedIn(cookies));
 
-    const allowedUser = res => {
-        const { email } = res.profileObj;
-        return (email === process.env.EWAN || email === process.env.NICO)
-    }
-
     const checkUser = res => {
-        if (allowedUser(res)) {
-            setAuthorised(true);
-            setLoggedIn(cookies, res.tokenId);
-        }
+        setAuthorised(true);
+        setLoggedIn(cookies, res.tokenId);
     }
 
     const failLogin = res => {
