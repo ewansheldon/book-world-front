@@ -47,7 +47,7 @@ const Nico = ({cookies, setAuthorised}) => {
     <>
       <button onClick={renderNewBookForm}>Add new book</button>
       <NicoBooksTable books={books} editBook={renderEditBookForm} />
-      {content && <Modal close={setContent} content={content} />}
+      {content && <Modal close={_ => setContent()} content={content} />}
     </>
   )
 }

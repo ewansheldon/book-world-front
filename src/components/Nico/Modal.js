@@ -20,17 +20,26 @@ const styles = {
     margin: 'auto',
     padding: 20,
     border: '1px solid #888',
-    width: '60%',
+    width: 'min-content',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)',
     borderRadius: 10
+  },
+  esc: {
+    float: 'right',
+    backgroundColor: '#efc2ff',
+    padding: '1px 3px 1px 3px',
+    cursor: 'pointer'
   }
 }
 
-const Modal = ({ content }) => {
+const Modal = ({ content, close }) => {
 
   return (
     <div style={styles.modal}>
-      <div style={styles["modal-content"]}>{content}</div>
+      <div style={styles["modal-content"]}>
+        <button onClick={close} style={styles.esc}>✖︎</button>
+        {content}
+      </div>
     </div>
   )
 }
