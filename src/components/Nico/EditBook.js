@@ -14,6 +14,26 @@ const styles = {
     resize: 'none',
     fontSize: 11,
     fontFamily: 'arial'
+  },
+  thumbnail: {
+    div: {
+      display: 'inline-flex'
+    },
+    arrow: {
+      margin: 8
+    },
+    input: {
+      maxHeight: 13.5
+    },
+    helper: {
+      margin: 5,
+      fontSize: 11,
+      fontStyle: 'italic',
+      color: 'grey'
+    },
+    linkDiv: {
+      maxWidth: 150
+    }
   }
 }
 
@@ -66,8 +86,12 @@ const EditBook = ({ book, cookies, replaceBook }) => {
       <div>
         <textarea style={styles.textarea} id="description" type="text" rows="4" cols="60" value={description} onChange={e => setDescription(e.target.value)} />
       </div>
-      <div>
-        <input style={styles.input} id="thumbnail" type="text" value={thumbnail} onChange={e => setThumbnail(e.target.value)} />
+      <div style={styles.thumbnail.div}>
+        <div style={styles.thumbnail.linkDiv}>
+          <input style={{ ...styles.input, ...styles.thumbnail.input }} id="thumbnail" type="text" value={thumbnail} onChange={e => setThumbnail(e.target.value)} />
+          <p style={styles.thumbnail.helper}>paste a direct link to a photo, and you should see a preview of it on the right (otherwise you've done something wrong)</p>
+        </div>
+        <p style={styles.thumbnail.arrow}>➜</p><img src={thumbnail}></img>
       </div>
       <div>
         <input style={styles.input} value="Save Book" type="submit" disabled={updateDisabled()} />
