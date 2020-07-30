@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as PropTypes from 'prop-types';
 import { withCookies } from "react-cookie";
-import { getAllCountries } from "../../api/Requests";
+import { getAllCountries, updateBook } from "../../api/Requests";
+import { getToken } from "../../services/AuthService";
 
 const styles = {
   input: {
@@ -16,7 +17,7 @@ const styles = {
   }
 }
 
-const EditBook = ({ book, cookies }) => {
+const EditBook = ({ book, cookies, replaceBook }) => {
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);
   const [country, setCountry] = useState(book.country);
@@ -30,7 +31,7 @@ const EditBook = ({ book, cookies }) => {
 
   const saveBook = e => {
     e.preventDefault();
-    console.log(title, author, country);
+    updateBook({ ...book, title, author, country, description, thumbnail }, getToken(cookies)).then(replaceBook);
   };
 
   const countryOptions = allCountries.map((country, index) =>
@@ -88,7 +89,9 @@ const book = PropTypes.shape({
 });
 
 EditBook.propTypes = {
-  book: book.isRequired
+  book: book.isRequired,
+  cookies: cookies.isRequired,
+  replaceBook: PropTypes.func.isRequired
 }
 
 export default withCookies(EditBook);

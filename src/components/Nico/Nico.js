@@ -17,6 +17,10 @@ const Nico = ({cookies, setAuthorised}) => {
     setContent();
   }
 
+  const replaceBook = book => {
+    console.log(book);
+  }
+
   const keyDownEvent = ({keyCode}) => {
     if (keyCode === 27) {
       setContent();
@@ -40,7 +44,7 @@ const Nico = ({cookies, setAuthorised}) => {
   }
 
   const renderEditBookForm = book => {
-    setContent(<EditBook book={book} />);
+    setContent(<EditBook book={book} replaceBook={replaceBook} />);
   }
 
   return (

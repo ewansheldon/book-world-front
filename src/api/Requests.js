@@ -25,6 +25,14 @@ export const createBook = async (book, token) => {
   }).then(response => response.json());
 }
 
+export const updateBook = async (book, token) => {
+  return await fetch(process.env.API_URL + '/books/' + book.id, {
+    method: "PATCH",
+    headers: { 'Content-Type': 'application/json', Authorization: token },
+    body: JSON.stringify(book)
+  }).then(res => res.json());
+}
+
 export const getAllCountries = async () => {
   return await fetch('https://restcountries.eu/rest/v2/all').then(
     response => response.json());
