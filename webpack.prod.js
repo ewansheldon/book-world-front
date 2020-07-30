@@ -18,10 +18,7 @@ module.exports = {
             'process.env': {
                 API_URL: JSON.stringify(process.env.API_URL),
                 MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
-                GOOGLE_AUTH_CLIENT_ID: JSON.stringify(process.env.GOOGLE_AUTH_CLIENT_ID),
-                EWAN: JSON.stringify(process.env.EWAN),
-                NICO: JSON.stringify(process.env.NICO),
-                LUCIE: JSON.stringify(process.env.LUCIE)
+                GOOGLE_AUTH_CLIENT_ID: JSON.stringify(process.env.GOOGLE_AUTH_CLIENT_ID)
             }
         })
     ],
