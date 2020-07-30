@@ -13,7 +13,7 @@ const NicoAuthGate = ({ cookies }) => {
         setLoggedIn(cookies, res.tokenId);
     }
 
-    const failLogin = res => {
+    const failLogin = _ => {
         logOut(cookies);
     }
 
