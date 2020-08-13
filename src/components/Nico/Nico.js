@@ -28,7 +28,16 @@ const Nico = ({cookies, setAuthorised}) => {
   }
 
   const replaceBook = book => {
-    console.log(book);
+    const updatedBooks = books.map(b => {
+      if (b.id === book.id) {
+        return book;
+      }
+
+      return b;
+    });
+
+    setBooks(updatedBooks);
+    setContent();
   }
 
   const keyDownEvent = ({keyCode}) => {
