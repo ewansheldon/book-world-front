@@ -28,13 +28,7 @@ const Nico = ({cookies, setAuthorised}) => {
   }
 
   const replaceBook = book => {
-    const updatedBooks = books.map(b => {
-      if (b.id === book.id) {
-        return book;
-      }
-
-      return b;
-    });
+    const updatedBooks = books.map(b => b.id === book.id ? book : b);
 
     setBooks(updatedBooks);
     setContent();
