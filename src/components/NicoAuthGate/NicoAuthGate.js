@@ -5,6 +5,13 @@ import * as PropTypes from 'prop-types';
 import Nico from "../Nico/Nico.js";
 import { isLoggedIn, setLoggedIn, logOut } from "../../services/AuthService.js"
 
+const styles = {
+    ptp: {
+        position: 'absolute',
+        paddingTop: '50%'
+    }
+}
+
 const NicoAuthGate = ({ cookies }) => {
     const [authorised, setAuthorised] = useState(isLoggedIn(cookies));
 
@@ -22,13 +29,16 @@ const NicoAuthGate = ({ cookies }) => {
     }
 
     return (
-        <GoogleLogin
-            clientId={process.env.GOOGLE_AUTH_CLIENT_ID}
-            buttonText="click here nico"
-            onSuccess={checkUser}
-            onFailure={failLogin}
-            cookiePolicy="single_host_origin"
-        />
+        <>
+            <GoogleLogin
+                clientId={process.env.GOOGLE_AUTH_CLIENT_ID}
+                buttonText="click here nico"
+                onSuccess={checkUser}
+                onFailure={failLogin}
+                cookiePolicy="single_host_origin"
+            />
+            <img style={styles.ptp} src="/dist/assets/ptp.jpg"></img>
+        </>
     );
 };
 
