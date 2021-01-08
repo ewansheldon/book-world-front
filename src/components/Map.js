@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Book from './Book/Book.js';
+import Loader from './Loader.js'
 import {getBook, getCountries} from "../api/Requests";
 
 const Map = () => {
@@ -7,6 +8,7 @@ const Map = () => {
   let hoveredFeature;
   const [book, setBook] = useState();
   const [countries, setCountries] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const addToken = _ => {
     window.mapboxgl.accessToken = process.env.MAPBOX_TOKEN
@@ -173,17 +175,27 @@ const Map = () => {
 
   useEffect(() => {
     getCountries().then(setCountries)
+    getCountries().then(data => {
+      setCountries(data);
+      setLoading(false);
+    })
   }, [])
 
   useEffect(() => {
     addScripts();
   }, [countries])
 
+  if (loading) {
+  }
+  
   return (
-      <>
-        <Book book={book}/>
-        <div id='map' className="map"/>
-      </>
+    <>
+      {loading &&
+        <Loader />
+      }
+      <Book book={book}/>
+      <div id='map' className="map"/>
+    </>
   );
 }
 
