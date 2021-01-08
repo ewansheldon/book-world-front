@@ -21,9 +21,6 @@ body {
   overflow-y: hidden;
 }
 
-.loader {
-
-}
 .loader::after {
   background-image: url('./assets/loading.svg');
   background-repeat: no-repeat;
