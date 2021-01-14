@@ -4,10 +4,10 @@ import Map from "../Map.js";
 
 const Landing = () => {
   return (
-    <>
+    <div className="landing-container">
       <Nav />
       <Map />
-    </>
+    </div>
   )
 }
 

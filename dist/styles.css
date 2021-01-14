@@ -18,7 +18,11 @@ body {
 
 .react {
   height: 100%;
+}
+
+.landing-container {
   overflow-y: hidden;
+  height: 100%;
 }
 
 .loader::after {
